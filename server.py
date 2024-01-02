@@ -6,7 +6,13 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-	return redirect('/temperature')
+	return redirect('/home')
+
+@app.route('/home')
+def main_page():
+	return render_template(
+		'home.html',
+	)
 
 @app.route('/temperature')
 def temperature():
@@ -40,7 +46,8 @@ def county(countyName):
 		counties = get_counties(),
 		base_url = '/county',
 		temperature_forecast_data = get_county_temperature_extremum(countyName),
-		county_information_data = get_county_information(countyName)
+		temperature_history_data = get_county_temperature_history(countyName),
+		information = get_county_information(countyName)
 	)
 
 

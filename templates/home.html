@@ -1,0 +1,23 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+{% endblock %}
+
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/custom-style.css') }}" />
+{% endblock %}
+
+{% block content %}
+  <div class="bg-zinc-500 text-white p-8 rounded-md mb-4">
+    <h2 class="text-4xl mb-8">
+      <i class="fa-solid fa-house-tsunami"></i>
+      <span>即時天氣顯示系統</span>
+    </h2>
+    <h3 class="text-xl text-right">
+        <span>資料視覺化期末專案</span>
+        <i class="fa-regular fa-folder-open"></i>
+    </h3>
+  </div>
+  <div class="text-zinc-300 text-center">第三組: 葛亭妤, 洪正豪, 曾翊承, 蔡承恩, 張信富</div>
+{% endblock %}

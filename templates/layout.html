@@ -16,12 +16,14 @@
     <div class="min-h-full">
       {% include 'header.html' %}
       <main>
-        <div class="mx-auto max-w-7xl py-12 sm:px-6 lg:px-8">
-          <div class="flex items-center mb-8 space-x-4">
-            <h1 class="text-3xl text-white">{% block title %}Title{% endblock %}</h1>
-            {% block dropdown %}{% endblock %}
+        <div class="mx-auto max-w-7xl py-12 px-2 sm:px-6 lg:px-8 flex justify-center">
+          <div>
+            <div class="flex items-center mb-8 space-x-4">
+              <h1 class="text-xl md:text-2xl lg:text-3xl text-white">{% block title %}Title{% endblock %}</h1>
+              {% block dropdown %}{% endblock %}
+            </div>
+            {% block content %}{% endblock %}
           </div>
-          {% block content %}{% endblock %}
         </div>
       </main>
     </div>

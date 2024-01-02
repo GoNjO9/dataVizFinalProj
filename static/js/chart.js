@@ -16,7 +16,7 @@ const choropleth = (chart_data, element, geojson_path) => {
     z: unpack(chart_data, 'z'),
   }]
   const layout = {
-    width: 500,
+    width: 550,
     mapbox: {
       style: 'white-bg',
       center: { lon: 120.9738819, lat: 23.97565 },
@@ -38,67 +38,28 @@ const choropleth = (chart_data, element, geojson_path) => {
 
 }
 
-const information_table = (table_data, element) => {
-  const data = [
-    {
-      type: 'table',
-      header: {
-        values: ['溫度', '相對濕度', '氣壓', '風速'],
-        align: ['left', 'left', 'left', 'left'],
-        line: { width: 1, color: 'black' },
-        fill: { color: 'grey' },
-        font: { family: "Arial", size: 12, color: "white" }
-      },
-      cells: {
-        values: [
-          [table_data['temperature'] + '℃   '],
-          [table_data['humidity'] + '%   '],
-          [table_data['pressure'] + 'hPa    '],
-          [table_data['windspeed'] + 'm/s   '],
-        ],
-        innerHeight: 70,
-        align: ['left', 'left', 'left', 'left'],
-        line: { color: "black", width: 1 },
-        font: { family: "Arial", size: 12, color: ["black"] }
-      }
-    }
-  ];
-
-  // 設定表格佈局
-  const layout = {
-    title: '當地即時氣候資料'
-  };
-
-  // 繪製表格
-  Plotly.newPlot(element, data, layout);
-}
-
-const temperature_forecast_scatter = (chart_data, element) => {
+const temperature_scatter = (forcast_data, history_data, element) => {
   const data = [
     {
       type: 'scatter',
       mode: 'lines+markers',
       name: '最低溫度',
-      x: chart_data['x'],
-      y: chart_data['MinT'],
-      hovertemplate: '%{y}°C'
+      x: history_data['x'].concat(forcast_data['x']),
+      y: history_data['MinT'].concat(forcast_data['MinT']),
+      hovertemplate: '%{x}   -   %{y}°C'
     },
     {
       type: 'scatter',
       mode: 'lines+markers',
       name: '最高溫度',
-      x: chart_data['x'],
-      y: chart_data['MaxT'],
-      hovertemplate: '%{y}°C'
+      x: history_data['x'].concat(forcast_data['x']),
+      y: history_data['MaxT'].concat(forcast_data['MaxT']),
+      hovertemplate: '%{x}   -   %{y}°C',
     },
   ]
 
   const layout = {
-    title: '未來 36 小時最高和最低溫度',
-    xaxis: {
-      tickmode: 'array',
-      tickvals: chart_data['ticks']
-    },
+    title: '過去 7 天與未來 36 小時最高和最低溫度',
     margin: { t: 100 },
   };
   const config = {

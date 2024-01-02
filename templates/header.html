@@ -1,7 +1,14 @@
-{% macro menuItem(url, label) %}
+{% macro menuItem(url, label, icon='') %}
   {% set path_parts = request.path.split('/') %}
   {% set url_parts = url.split('/') %}
-  <a href="{{ url }}" class="{{ 'bg-zinc-500' if path_parts[1] == url_parts[1] }} text-white text-center hover:bg-zinc-400 md:rounded-md w-full md:w-fit md:px-3 py-2 text-lg font-medium focus:ring-2 focus:ring-slate-300">{{ label }}</a>
+  <a href="{{ url }}" class="{{ 'bg-zinc-500' if path_parts[1] == url_parts[1] }} text-white text-center hover:bg-zinc-400 md:rounded-md w-full md:w-fit md:px-3 py-2 text-lg font-medium focus:ring-2 focus:ring-slate-300">
+    <span class="inline-flex items-center">
+      {% if icon %}
+        <i class="{{ icon }} text-sm mr-2"></i>
+      {% endif %}
+      <span>{{ label }}</span>
+    </span>
+  </a>
 {% endmacro %}
 
 <nav class="bg-zinc-700">
@@ -16,11 +23,12 @@
             <i class="fa-solid fa-bars"></i>
           </button>
       </div>
-      <div id="menu" class="hidden md:flex flex-col items-center justify-center md:flex-row md:justify-start  md:space-x-4 pb-4 md:py-4 w-full">
-        {{ menuItem('/temperature', '氣溫') }}
-        {{ menuItem('/rainfall/Now', '雨量') }}
-        {{ menuItem('/windspeed', '風速') }}
-        {{ menuItem('/county/臺北市', '縣市') }}
+      <div id="menu" class="hidden flex md:flex flex-col items-center justify-center md:flex-row md:justify-start  md:space-x-4 pb-4 md:py-4 w-full">
+        {{ menuItem('/home', 'Home', 'fa-solid fa-home') }}
+        {{ menuItem('/temperature', '氣溫', 'fa-solid fa-thermometer') }}
+        {{ menuItem('/rainfall/Now', '雨量', 'fa-solid fa-cloud-rain') }}
+        {{ menuItem('/windspeed', '風速', 'fa-solid fa-wind') }}
+        {{ menuItem('/county/臺北市', '縣市', 'fa-solid fa-map-marker') }}
       </div>
     </div>
   </div>

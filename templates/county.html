@@ -2,6 +2,7 @@
 
 {% block title %}
   {{ location }}
+  <small class="text-xs">(部分縣市無歷史資料)</small>
 {% endblock %}
 
 {% block dropdown %}
@@ -11,25 +12,61 @@
 {% endblock %}
 
 {% block content %}
-<div class="flex flex-col space-y-8 lg:flex-row lg:space-x-8">
+<div class="flex flex-col space-y-8 space-x-0 lg:flex-row lg:space-y-0 lg:space-x-8">
   <div class="p-2 bg-white rounded-md w-fit">
-    <div id="chart" class="max-w-[500px]"></div>
+    <div id="chart" class="max-w-[600px]"></div>
   </div>
-  <div class="p-2 bg-white rounded-md w-fit">
-    <div id="table" class="max-w-[500px]"></div>
+  <div>
+    <h2 class="text-white font-medium text-xl mb-4">天氣資訊</h2>
+    <div class="overflow-x-auto h-fit rounded-md">
+      <table class="w-full text-md text-white text-left">
+        <thead class="text-sm bg-cyan-700">
+          <tr>
+            <td scope="col" class="px-6 py-3">
+              溫度 (°C)
+            </td>
+            <th scope="col" class="px-6 py-3">
+              相對溼度 (%)
+            </th>
+            <th scope="col" class="px-6 py-3">
+              氣壓 (hPa)
+            </th>
+            <th scope="col" class="px-6 py-3">
+              風速 (m/s)
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="bg-zinc-700">
+            <td class="px-6 py-4">
+              {{ information.temperature }}
+            </td>
+            <td class="px-6 py-4">
+              {{ information.humidity }}
+            </td>
+            <td class="px-6 py-4">
+              {{ information.pressure }}
+            </td>
+            <td class="px-6 py-4">
+              {{ information.windspeed }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
 {% endblock %}
 
 {% block script %}
-  <script src="{{ url_for('static', filename='js/chart.js') }}"></script>
-  <script src="{{ url_for('static', filename='js/dropdown.js') }}"></script>
-  <script>
-    const temp_forecast_data_json = '{{ temperature_forecast_data | tojson | safe }}'
-    const temp_forecast_data = JSON.parse(temp_forecast_data_json.slice(1,-1))
-    const county_information_data_json = '{{ county_information_data | tojson | safe }}'
-    const county_information_data= JSON.parse(county_information_data_json.slice(1,-1))
-    temperature_forecast_scatter(temp_forecast_data, 'chart')
-    information_table(county_information_data ,'table')
-  </script>
+<script src="{{ url_for('static', filename='js/chart.js') }}"></script>
+<script src="{{ url_for('static', filename='js/dropdown.js') }}"></script>
+<script>
+  const temp_forecast_data_json = '{{ temperature_forecast_data | tojson | safe }}'
+  const temp_forecast_data = JSON.parse(temp_forecast_data_json.slice(1, -1))
+  const temp_history_data_json = '{{ temperature_history_data | tojson | safe }}'
+  const temp_history_data = JSON.parse(temp_history_data_json.slice(1, -1))
+  console.log(temp_forecast_data, temp_history_data)
+  temperature_scatter(temp_forecast_data, temp_history_data, 'chart')
+</script>
 {% endblock %}
