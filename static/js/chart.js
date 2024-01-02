@@ -5,6 +5,8 @@
  */
 
 
+
+
 const choropleth = (chart_data, element, geojson_path) => {
   const data = [{
     type: 'choroplethmapbox',
@@ -49,10 +51,10 @@ const information_table = (table_data, element) => {
       },
       cells: {
         values: [
-          [table_data['temperature']+'℃   '],
-          [table_data['humidity']+'%   '],
-          [table_data['pressure']+'hPa    '],
-          [table_data['windspeed']+ 'm/s   '],
+          [table_data['temperature'] + '℃   '],
+          [table_data['humidity'] + '%   '],
+          [table_data['pressure'] + 'hPa    '],
+          [table_data['windspeed'] + 'm/s   '],
         ],
         innerHeight: 70,
         align: ['left', 'left', 'left', 'left'],
@@ -109,6 +111,7 @@ const temperature_forecast_scatter = (chart_data, element) => {
 // 創建兩種不同排序的直方圖
 const createHistogram = (chart_data, element, yaxix_title) => {
   // 將資料轉換為直方圖需要的格式
+  const sorted_chart_data = _.cloneDeep(chart_data);
   const sorted_chart_data = _.cloneDeep(chart_data);
   sorted_chart_data.sort((a, b) => b.z - a.z)// 按照氣溫排序
 

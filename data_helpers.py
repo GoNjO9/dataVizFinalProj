@@ -2,6 +2,7 @@ import json
 import pandas as pd
 from datetime import datetime, timedelta
 import statistics as st
+import statistics as st
 
 WEATHER_DATA_PATH = './data/weather.json'
 RAINFALL_DATA_PATH = './data/rainfall.json'
